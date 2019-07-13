@@ -4,4 +4,14 @@ import datetime
 
 class InteractionTrace(DynamicDocument):
     user = ReferenceField(User)
-    time = DateTimeField(default=datetime.datetime.now())
+    start = DateTimeField(default=datetime.datetime.now())
+    end = DateTimeField(default=datetime.datetime.now())
+    dwell_time = FloatField()
+    page_timestamps= ListField(DictField())
+    type=StringField()
+    origin=StringField()
+    url=StringField()
+    serp_link=StringField()
+    query=StringField()
+    page_id=IntField()
+    clicked_results=ListField(DictField())

@@ -36,6 +36,16 @@ class BaiduResults(Document):
     query = StringField()
     results = ListField(EmbeddedDocumentField(BaiduResult))
 
+class SogouResult(EmbeddedDocument):
+    title = StringField()
+    url = StringField()
+    snippet = StringField()
+    html_content = StringField()
+
+class SogouResults(Document):
+    query = StringField()
+    results = ListField(EmbeddedDocumentField(BaiduResult))
+
 class BaiduCQAResult(EmbeddedDocument):
     title = StringField()
     url = StringField()
