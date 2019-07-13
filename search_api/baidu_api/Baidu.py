@@ -31,6 +31,7 @@ def Baidu(query):
             d['url'] = rc_url.search(head).group()
             d['title'] = s.h3.text
             d['snippet'] = str(s.find('div', 'c-abstract'))
+            result = result.replace(d['url'], 'http://127.0.0.1:8000/processed/index/' + d['url'])
             d['html'] = result
             serp.append(d)
         res = json.dumps(serp)
