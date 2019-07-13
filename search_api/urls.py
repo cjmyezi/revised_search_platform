@@ -11,5 +11,6 @@ urlpatterns = [
     url(r'^baidu_cqa/$', views.baidu_cqa_search),
     url(r'^baidu/$', views.baidu_search),
     url(r'^zhihu/$', views.zhihu_search),
+    url(r'^sogou/$', views.sogou_search),
 ]
 

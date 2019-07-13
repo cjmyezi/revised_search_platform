@@ -5,6 +5,7 @@ __author__ = 'defaultstr'
 from .bing_api import BingSE
 from .baidu_api import Baidu
 from .zhihu_api import ZhihuCQA
+from .sogou_api import Sogou
 from .models import *
 import json
 
@@ -40,5 +41,8 @@ def crawl_baidu(query):
 
 def crawl_zhihu(query):
     return _crawl(query, ZhihuCQA.ZhihuCQA, ZhihuResult, ZhihuResults)
+
+def crawl_sogou(query):
+    return _crawl(query, Sogou.Sogou, SogouResult, SogouResults)
 
 

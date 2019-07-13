@@ -1,0 +1,7 @@
+Performing system checks...
+
+System check identified no issues (0 silenced).
+July 12, 2019 - 23:12:23
+Django version 1.8.3, using settings 'search_platform.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
