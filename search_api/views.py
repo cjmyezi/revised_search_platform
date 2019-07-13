@@ -10,7 +10,7 @@ import task_manager.utils as task_utils
 import utils
 from .models import *
 
-
+@require_login
 def bing_search(user, request):
     # read parameters
     query = request.GET.get('query', '')
