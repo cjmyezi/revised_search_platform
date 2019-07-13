@@ -20,6 +20,9 @@ def save_interaction(user, request):
     clicked = []
     if (len(j['clicked_results'])>2):
         clicked = ast.literal_eval(j['clicked_results'])
+    mouse = []
+    if (len(j['mouse_moves'])>2):
+        mouse = ast.literal_eval(j['mouse_moves'])
     res = InteractionTrace(
         user=user,
         start=datetime.datetime.fromtimestamp(j['start_timestamp']/1000),
@@ -31,7 +34,7 @@ def save_interaction(user, request):
         url=j['url'],
         serp_link=j['serp_link'],
         query=j['query'],
-        page_id=j['page_id'],
+        mouse_moves = mouse,
         clicked_results = clicked
     )
     res.save()

@@ -12,7 +12,7 @@ rc_src = re.compile(r'(?<=src=").+?(?=")')
 
 def BingSE(query):
     para = dict()
-    para['q'] = query
+    para['q'] = query.encode('gbk')
     para['count'] = 50
     url = 'http://www.bing.com/search?' + urllib.urlencode(para)
     try:

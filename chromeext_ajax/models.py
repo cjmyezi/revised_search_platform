@@ -13,5 +13,5 @@ class InteractionTrace(DynamicDocument):
     url=StringField()
     serp_link=StringField()
     query=StringField()
-    page_id=IntField()
     clicked_results=ListField(DictField())
+    mouse_moves=ListField(DictField())
