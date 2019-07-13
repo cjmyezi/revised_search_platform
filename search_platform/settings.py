@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'search_api',
     'exp_domain_expertise',
     'chromeext_ajax',
+    'processed',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -112,7 +113,7 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': '/Users/cjmyezi/Desktop/Summarization/experiment code/debug.log',
+            'filename': '/home/zhanjingtao/code/ext/log/debug.log',
         },
     },
     'loggers': {
