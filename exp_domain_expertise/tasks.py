@@ -40,6 +40,46 @@ tasks = [
     Task(
         task_id='2',
         name=u'任务2',
-        description=u'问：测试',
+        description=u'问：简述郁金香狂热事件（Tulip Mania）（200字以内）',
+    ),
+    Task(
+        task_id='3',
+        name=u'任务3',
+        description=u'问：简述汇率对经济的影响。',
+    ),
+    Task(
+        task_id='4',
+        name=u'任务4',
+        description=u'问：纯牛奶的功效与作用。',
+    ),
+    Task(
+        task_id='5',
+        name=u'任务5',
+        description=u'问：骨质增生是什么原因引起的？',
+    ),
+    Task(
+        task_id='6',
+        name=u'任务6',
+        description=u'问：内分泌失调能引起血压升高吗？',
+    ),
+    Task(
+        task_id='7',
+        name=u'任务7',
+        description=u'问：什么是责任分散（旁观者）效应，及如何避免责任分散效应？',
+    ),
+    Task(
+        task_id='8',
+        name=u'任务8',
+        description=u'问：边缘性人格障碍的诊断标准是什么？',
+    ),
+    Task(
+        task_id='9',
+        name=u'任务9',
+        description=u'问：地震的等级和烈度有什么区别？',
+    ),
+    Task(
+        task_id='10',
+        name=u'任务10',
+        description=u'问： 加州为什么山火频发？',
     ),
 ]
