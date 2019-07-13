@@ -33,8 +33,6 @@ def BingSE(query):
     req.add_header('Referer', 'http://www.python.org/')
     req.add_header('User-Agent','Mozilla/4.0 compatible; MSIE 5.5; Windows NT')
 
-    with open('./request.txt', 'w') as file:
-        file.write(url)
     try:
         txt = urllib2.urlopen(req).read()
     except Exception as e:
@@ -52,8 +50,6 @@ def BingSE(query):
 
             html = str(title_html) + '\n' + str(sibling)
             html = "{}\n{}\n{}".format("<li class=\"b_algo\">", html, "</li>")
-            with open("./html.html", 'w') as file:
-                file.write(html)
             try:
                 origin_url = rc_url.search(title_html).group()
                 if not origin_url.startswith("http"):
