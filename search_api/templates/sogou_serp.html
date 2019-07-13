@@ -1,0 +1,165 @@
+﻿
+<!DOCTYPE html><html lang="zh" xml:lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:Web="http://schemas.live.com/Web/"><script type="text/javascript">//<![CDATA[
+si_ST=new Date;
+//]]></script>
+<head><!--pc--><title>{{ query }} - Sogou</title>
+    <!-- our head -->
+    <link rel="icon" href="/static/img/IR4.png" type="image/png"/>
+
+    <!-- Loading Bootstrap -->
+    <link href="/static/flat-ui/css/vendor/bootstrap.min.css" rel="stylesheet">
+    <!-- Loading Flat UI -->
+
+    <!-- Loading Jquery -->
+    <script src="/static/flat-ui/js/vendor/jquery.min.js"></script>
+    <!-- customized style -->
+        <style>
+            .search-form {
+                padding: 20px;
+                background: #eeeeee;
+            }
+
+            .top-buffer {
+                margin-top: 20px;
+            }
+
+            .btn-text {
+                background-color: transparent;
+                box-shadow: none;
+                border-color: transparent;
+                cursor: default;
+            }
+
+        </style>
+    <!-- end of customized style -->
+    <!-- end of our head -->
+
+
+    <!-- search form -->
+    <div class="row search-form">
+        <form id="search_form" name="search_form" method="get">
+            <input type="hidden" name="task_url" value="{{ task_url }}">
+
+            {% if log == 0 %}
+                <input type="hidden" name="log" value="0">
+            {% endif %}
+
+            <div class="col-xs-offset-1 col-xs-5">
+                <input type="text" id="query_input" name="query" value="{{ query }}" class="form-control">
+            </div>
+
+            <div class="col-xs-2">
+                <button class="col-xs-3 btn btn-block btn-primary search-btn" type="submit">
+                    <small>
+                        搜狗搜索
+                    </small>
+                </button>
+            </div>
+
+            <div class="col-xs-2">
+                <button class="col-xs-3 btn btn-block btn-success success-btn">
+                    <small>
+                        搜索完成
+                    </small>
+                </button>
+            </div>
+
+
+        </form>
+        <script>
+            function add_time_stamp(form) {
+                var timestamp_input = document.createElement('input');
+                timestamp_input.type = 'hidden';
+                timestamp_input.name = 'timestamp';
+                timestamp_input.value = (new Date()).getTime();
+                form.appendChild(timestamp_input);
+            }
+
+            (function() {
+                $('.search-btn').click(function(e) {
+                    e.preventDefault();
+                    var form = document.search_form;
+                    add_time_stamp(form);
+
+                    var button = e.target;
+                    form.action = "/search_api/sogou/"
+                    form.submit();
+                });
+            })();
+
+            (function() {
+               $('.success-btn').click(function(e) {
+                   e.preventDefault();
+                   window.close();
+               })
+            })();
+        </script>
+    </div>
+    <!-- end of search form -->
+
+
+
+<div id="b_content"><ol id="b_results">
+
+
+    <!-- results -->
+    {% autoescape off %}
+        {{ results_html }}
+    {% endautoescape %}
+    <!-- end of results -->
+
+
+</ol>
+</div>
+    <!-- pagination -->
+{% if show_pagination  %}
+    <div class="row search-form">
+        <div class="col-xs-offset-1">
+            {% for i in pages %}
+                {% if i == page %}
+                    <button class="btn-text">{{ i }}</button>
+                {% else %}
+                    <button id="sogou_page_{{ i }}" class="btn-link page-btn" value="{{ i }}"
+                        formaction="/search_api/sogou/">
+                        {{ i }}
+                    </button>
+                {% endif %}
+            {% endfor %}
+            {% if next_page %}
+                <button id="sogou_page_next" class="btn-link page-btn" value="{{ next_page }}"
+                        formaction="/search_api/sogou/">
+                    下一页
+                </button>
+            {% endif %}
+        </div>
+    </div>
+    <script>
+        function add_page(form, page) {
+            var page_input = document.createElement('input');
+            page_input.type = 'hidden';
+            page_input.name = 'page';
+            page_input.value = page;
+            form.appendChild(page_input);
+
+            var query_input = document.getElementById('query_input')
+            query_input.value = '{{ query }}';
+        }
+
+        (function() {
+            $('.page-btn').click(function(e) {
+                e.preventDefault();
+
+                var form = document.search_form;
+                add_time_stamp(form);
+
+                var button = e.target;
+                add_page(form, button.value);
+
+                form.action = button.formAction;
+                form.submit();
+            });
+        })();
+    </script>
+{% endif %}
+    <!-- end of pagination -->
+</body></html>
