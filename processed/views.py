@@ -13,7 +13,7 @@ def get_saved_page(url):
     try:
         detailPage = DetailPage.objects.get(url=url)
     except DoesNotExist as e:
-        return 1, None
+        return False, None
     else:
         return True, detailPage
 
