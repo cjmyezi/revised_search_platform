@@ -9,13 +9,10 @@ rc_url = re.compile(r'(?<=href=").+?(?=")')
 blacklist_domain = ["zhidao.baidu.com", "zhihu.com"]
 
 def Baidu(query):
-    fw = file('Baidu.txt', 'w')
     para = dict()
-    fw.write(query + '\n')
     para['wd'] = query
     para['rn'] = 50
     url = 'http://www.baidu.com/s?' + urllib.urlencode(para)
-    fw.write(url + '\n')
     try:
         txt = urllib2.urlopen(url).read()
     except Exception as e:
@@ -24,6 +21,8 @@ def Baidu(query):
         soup = BeautifulSoup(txt)
         serp = list()
         for result in soup.find_all('div', class_='result c-container'):
+            for div in result.find_all("div", {'class': 'c-span6'}):
+                div.decompose()
             result = str(result)
             s = BeautifulSoup(result)
             d = dict()
