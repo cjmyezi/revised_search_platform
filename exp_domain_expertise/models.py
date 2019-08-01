@@ -20,6 +20,7 @@ class PreTaskQuestionLog(Document):
     knowledge_scale = IntField()
     interest_scale = IntField()
     difficulty_scale = IntField()
+    time = DateTimeField()
 
 
 class PostTaskQuestionLog(Document):
@@ -32,6 +33,7 @@ class PostTaskQuestionLog(Document):
     interest_scale = IntField()
     difficulty_scale = IntField()
     satisfaction_scale = IntField()
+    time = DateTimeField()
 
 
 class QuerySatisfactionScore(EmbeddedDocument):
@@ -47,3 +49,4 @@ class QuerySatisfactionLog(Document):
     task_id = StringField()
     task_url = StringField()
     satisfaction_scores = ListField(EmbeddedDocumentField(QuerySatisfactionScore))
+    time = DateTimeField()
