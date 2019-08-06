@@ -1,0 +1,110 @@
+<!-- Loading Jquery -->
+<script src="/static/flat-ui/js/vendor/jquery.min.js"></script>
+<script src="/static/raty/jquery.raty.js"></script>
+
+{{ html | safe }}
+
+<script>
+    console.log('In get item pos');
+    // var baseurl = 'http://127.0.0.1:8000';
+    var baseurl = 'http://10.129.248.202:9999';
+    var send_url = baseurl + '/heatmaps/receive_pos/' + {{ task_id }} + '/';
+    var success_url = baseurl + '/heatmaps/send_success/' + {{ task_id }} + '/' ;
+    console.log(send_url);
+
+    function getElementLocation(element, eid){
+        var actualLeft = element.offset().left;
+        var actualTop = element.offset().top;
+        var width = element.width();
+        var height = element.height();
+        console.log(eid, actualLeft, actualTop, width, height);
+        return {eid: eid, absLeft: actualLeft, absTop: actualTop, offsetWidth: width, offsetHeight: height};
+    }
+
+    var search_form = $("form#searchForm");
+    search_form.empty();
+    search_form.append(
+        "      <div class='querybox'>\n" +
+        "       <div class='qborder'>\n" +
+        "        <div class='qborder2 yuyin-cur'>\n" +
+        "         <input autocomplete='off' class='query' id='upquery' len='80' maxlength='100' name='query'  type='text' value='{{ query }}' />\n" +
+        "        </div>\n" +
+        "       </div>\n" +
+        "    <button class='sbtn1' id='searchBtn' type='submit'>搜狗搜索</button>\n" +
+        "      </div>\n" );
+
+    var content_left = $("div.results").children("div");
+    var content_entity = $("div#kmap_entity_div").children("ul");
+    var tupu_div = $("div#kmap_relation_div");
+    var hint_up = $("div.top-hintBox#stable_uphint");
+    var hint_bot = $("table.hint#hint_container");
+
+    var pos_array = new Array();
+
+    for (var i = 0; i < content_left.length; i ++){
+        content_left[i].setAttribute("id", (i+1)+"_left");
+        var tmp_left = $("#" + (i+1) + "_left");
+        pos_array.push(getElementLocation(tmp_left, (i+1) + "_left"));
+    }
+
+    if (hint_up.length > 0){
+        pos_array.push(getElementLocation(hint_up, '1_up'));
+    }
+
+    if (hint_bot.length > 0){
+        pos_array.push(getElementLocation(hint_bot, '1_bot'));
+    }
+
+    if (content_entity.length > 0) {
+        for (var j = 0; j < content_entity.length; j++) {
+            content_entity[j].setAttribute("id", (j + 1) + "_right");
+            var tmp_right = $("#"+(j+1)+"_right");
+            pos_array.push(getElementLocation(tmp_right, (j+1)+"_right"));
+        }
+    }
+
+    //console.log(tupu_div);
+    if (tupu_div.length > 0){
+        pos_array.push(getElementLocation(tupu_div, '1_tupu'));
+    }
+
+    console.log('get all pos', pos_array.length);
+
+    alert('submit pos array');
+
+    $.ajax({
+        type: "POST",
+        dataType: "text",
+        url: send_url,
+        data: {pos: JSON.stringify(pos_array)},
+        success: function (result) {
+            console.log(result);
+            $(location).attr('href', success_url);
+        },
+        error: function () {
+            console.log('send pos fail');
+        }
+    });
+
+    /*(function () {
+        $("#searchBtn").click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                dataType: "text",
+                url: send_url,
+                data: {pos: JSON.stringify(pos_array)},
+                success: function (result) {
+                    console.log('send pos success');
+                },
+                error: function () {
+                    console.log('send pos fail');
+                }
+            });
+        });
+    })*/
+
+
+
+
+</script>
