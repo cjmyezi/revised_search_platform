@@ -6,8 +6,8 @@
 
 <script>
     console.log('In get item pos');
-    // var baseurl = 'http://127.0.0.1:8000';
-    var baseurl = 'http://10.129.248.202:9999';
+    var baseurl = 'http://127.0.0.1:8000';
+    // var baseurl = 'http://10.129.248.202:9999';
     var send_url = baseurl + '/heatmaps/receive_pos/' + {{ task_id }} + '/';
     var success_url = baseurl + '/heatmaps/send_success/' + {{ task_id }} + '/' ;
     console.log(send_url);

@@ -8,9 +8,11 @@ from django.template import RequestContext, loader
 from django.views.decorators.csrf import csrf_exempt
 import urllib
 from .models import *
+from user_system.models import User
+from search_api.models import BaiduResults
 import exp_domain_expertise.tasks as tks
 import exp_domain_expertise.utils as tuils
-import utils
+#import utils
 
 
 try:
@@ -20,19 +22,37 @@ except ImportError:
 
 
 def task_html_pos(request, task_id):
-    task = tuils.get_task_by_id(task_id)
-    init_html = task.init_html
+    user = User.objects.get(username="zhan_debug")
+    results = BaiduResults.objects.all()[0]
+    query = results.query
+    
+    results_html = ""
+    for idx in range(len(results.results)):
+        results_html += results.results[idx].html_content
+    response = render_to_response(
+        'baidu_serp.html',
+        {
+            'cur_user': user,
+            'query': query,
+            'task_url': "",
+            'log': "",
+            'results_html': results_html,
+        },
+        RequestContext(request),
+    )
     return render_to_response(
         'server_page.html',
         {
             'task_id': task_id,
-            'html': init_html,
+            'html': response.content,
         },
         RequestContext(request),
     )
 
 
 def sogou_html_pos(request, last_time):
+    pass
+'''
     page = utils.get_sogoupage_obj(_last_time=int(last_time))
     if page is None:
         return HttpResponse('No sogou page to get')
@@ -46,7 +66,7 @@ def sogou_html_pos(request, last_time):
         },
         RequestContext(request),
     )
-
+'''
 
 @csrf_exempt
 def receive_pos(request, task_id):
@@ -72,7 +92,7 @@ def receive_pos(request, task_id):
         positions.save()
     return HttpResponse('success')
 
-
+'''
 @csrf_exempt
 def receive_pos_sogou(request, start_time):
     print('receive pos', request)
@@ -97,7 +117,7 @@ def receive_pos_sogou(request, start_time):
         positions.item_pos = tmp_list
         positions.save()
     return HttpResponse('success')
-
+'''
 
 def send_success(request, task_id):
     print('in send success', request)

@@ -17,5 +17,6 @@ urlpatterns = [
     url(r'^exp_domain_expertise/', include('exp_domain_expertise.urls')),
     url(r'^chromeext_ajax/', include('chromeext_ajax.urls')),
     url(r'^processed/', include('processed.urls')),
+    url(r'^html_pos/', include('html_pos.urls')),
     url(r'^$', views.index)
 ]

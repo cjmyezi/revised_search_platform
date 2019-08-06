@@ -44,6 +44,7 @@ INSTALLED_APPS = (
     'exp_domain_expertise',
     'chromeext_ajax',
     'processed',
+    'html_pos'
 )
 
 MIDDLEWARE_CLASSES = (
