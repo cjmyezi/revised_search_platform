@@ -113,7 +113,8 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': '/Users/cjmyezi/Desktop/Summarization/experiment code/debug.log',
+            'filename': '/home/zhanjingtao/code/ext/revised_search_platform/log/debug.log',
+            #'filename': '/Users/cjmyezi/Desktop/Summarization/experiment code/debug.log',
         },
     },
     'loggers': {
