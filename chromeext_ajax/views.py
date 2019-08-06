@@ -16,7 +16,11 @@ import ast
 @require_login
 def save_interaction(user, request):
     r = urllib2.unquote(request.body).decode('utf8')
-    j = json.loads(r[8:])
+    try:
+        j = json.loads(r[8:])
+    except ValueError:
+        print("Debug Info: Request body " + request.body)
+        return JsonResponse({"success": True}, status=200)
     clicked = []
     if (len(j['clicked_results'])>2):
         clicked = ast.literal_eval(j['clicked_results'])

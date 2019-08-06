@@ -8,6 +8,7 @@ from user_system.utils import require_login
 import task_manager.utils as task_utils
 import utils
 import tasks
+import datetime
 from .models import *
 from .forms import *
 from search_api.models import *
@@ -106,6 +107,7 @@ def pre_task_question(user, request, task_id):
             log.knowledge_scale = form.cleaned_data['knowledge_scale']
             log.interest_scale = form.cleaned_data['interest_scale']
             log.difficulty_scale = form.cleaned_data['difficulty_scale']
+            log.time = datetime.datetime.now()
             log.save()
 
             next_step = utils.get_next_step(task_state.current_step)
@@ -187,6 +189,7 @@ def query_satisfaction(user, request, task_id):
             log.task_url = url
             log.task_id = task_id
             log.satisfaction_scores = scores
+            log.time = datetime.datetime.now()
             log.save()
 
             next_step = utils.get_next_step(task_state.current_step)
@@ -251,6 +254,7 @@ def post_task_question(user, request, task_id):
             log.interest_scale = form.cleaned_data['interest_scale']
             log.difficulty_scale = form.cleaned_data['difficulty_scale']
             log.satisfaction_scale = form.cleaned_data['satisfaction_scale']
+            log.time = datetime.datetime.now()
             log.save()
 
             next_step = utils.get_next_step(task_state.current_step)
